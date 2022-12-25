@@ -1,4 +1,4 @@
 import Text from './Fonts'
 
-export * from './Colors'
+export { COLORS } from './Colors'
 export { Text } 

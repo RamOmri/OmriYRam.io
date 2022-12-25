@@ -1,8 +1,8 @@
 import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
-import React, { useEffect } from "react";
+import React from "react";
 import { FC } from "react";
 import { View, StyleSheet } from "react-native";
-import { COLORS } from "../../styles";
+import { COLORS, Text } from "../../styles";
 import { useGetDimensions } from "../../utils";
 import TabButton from "./TabButton";
 
@@ -10,6 +10,9 @@ export const TabBar: FC<MaterialTopTabBarProps> = ({ state, navigation }) => {
   const { width } = useGetDimensions();
   return (
     <View style={styles.container}>
+      <Text fontType="Title" style={styles.title}>
+        Omri Y Ram
+      </Text>
       <View
         style={[
           styles.tabContainer,
@@ -48,5 +51,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 40,
     backgroundColor: COLORS.Black,
+  },
+  title: {
+    marginBottom: 12,
   },
 });

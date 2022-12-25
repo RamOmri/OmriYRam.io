@@ -11,10 +11,9 @@ type TextProps = Pick<
 };
 
 function getStyle(fontType: TextProps["fontType"], screenWidth: number) {
-  console.log(screenWidth);
   switch (fontType) {
     case "Title":
-      return [styles.title, { fontSize: screenWidth * 0.008 }];
+      return [styles.title, { fontSize: screenWidth * 0.028 }];
     case "Body":
       return [styles.body, { fontSize: screenWidth * 0.012 }];
     case "BodyHeader":
