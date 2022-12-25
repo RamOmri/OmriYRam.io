@@ -3,18 +3,31 @@ import React, { useEffect } from "react";
 import { FC } from "react";
 import { View, StyleSheet } from "react-native";
 import { COLORS } from "../../styles";
-import Hoverable from "../Hoverable/Hoverable";
+import { useGetDimensions } from "../../utils";
+import TabButton from "./TabButton";
 
 export const TabBar: FC<MaterialTopTabBarProps> = ({ state, navigation }) => {
+  const { width } = useGetDimensions();
   return (
     <View style={styles.container}>
-      <View style={styles.tabContainer}>
-        <Hoverable
-          onHoverIn={() => console.log("hover in")}
-          onHoverOut={() => console.log("hover out")}
-        >
-          <View style={{ height: 20, width: 20, backgroundColor: "purple" }} />
-        </Hoverable>
+      <View
+        style={[
+          styles.tabContainer,
+          { height: 0.035 * width, borderRadius: width / 100 },
+        ]}
+      >
+        <TabButton
+          label="Home"
+          color="Black"
+          onPress={() => navigation.navigate("Home")}
+        />
+        <TabButton label="About me" color="Black" />
+
+        <TabButton
+          label="Contact"
+          color="Black"
+          onPress={() => navigation.navigate("Contact")}
+        />
       </View>
     </View>
   );
@@ -22,13 +35,14 @@ export const TabBar: FC<MaterialTopTabBarProps> = ({ state, navigation }) => {
 
 const styles = StyleSheet.create({
   tabContainer: {
-    width: "80%",
-    justifyContent: "center",
+    width: "75%",
+    borderBottomWidth: 6,
+    borderBottomColor: COLORS.Maroon,
     backgroundColor: COLORS.White,
-    borderBottomWidth: 4,
-    borderBottomColor: COLORS.Blue,
-    flex: 1,
-    borderRadius: 200,
+    paddingLeft: 24,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
   },
   container: {
     alignItems: "center",

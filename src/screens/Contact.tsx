@@ -2,10 +2,10 @@ import React from "react";
 import { View, StyleSheet, Dimensions } from "react-native";
 import { Text, COLORS } from "../styles";
 
-export default function Home() {
+export default function Contact() {
   return (
     <View style={styles.container}>
-      <Text fontType="Body">Home</Text>
+      <Text fontType="Body">Contact</Text>
     </View>
   );
 }

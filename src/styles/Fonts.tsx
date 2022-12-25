@@ -1,25 +1,52 @@
-import React, { FC } from "react";
-import { Text, StyleSheet } from "react-native";
+import React, { FC, useEffect, useState } from "react";
+import { Text as RawText, StyleSheet, Dimensions } from "react-native";
+import { useGetDimensions } from "../utils";
 import { COLORS } from "./Colors";
 
-type TextProps = Pick<React.ComponentProps<typeof Text>, "style" | "children">;
-
-export const TitleText: FC<TextProps> = ({ style, children }) => {
-  return <Text style={[styles.title, style]}>{children}</Text>;
+type TextProps = Pick<
+  React.ComponentProps<typeof RawText>,
+  "style" | "children"
+> & {
+  fontType: "Title" | "Body" | "BodyHeader";
 };
 
-export const BodyText: FC<TextProps> = ({ style, children }) => {
-  return <Text style={[styles.title, style]}>{children}</Text>;
+function getStyle(fontType: TextProps["fontType"], screenWidth: number) {
+  console.log(screenWidth);
+  switch (fontType) {
+    case "Title":
+      return [styles.title, { fontSize: screenWidth * 0.008 }];
+    case "Body":
+      return [styles.body, { fontSize: screenWidth * 0.012 }];
+    case "BodyHeader":
+      return [styles.bodyHeader, { fontSize: screenWidth * 0.017 }];
+    default:
+      break;
+  }
+}
+
+const Text: FC<TextProps> = ({ style, children, fontType }) => {
+  const { width } = useGetDimensions();
+
+  return (
+    <RawText style={[styles.text, style, ...(getStyle(fontType, width) ?? [])]}>
+      {children}
+    </RawText>
+  );
 };
 
 const styles = StyleSheet.create({
   title: {
-    color: COLORS.White,
-    size: 26,
     fontWeight: "bold",
   },
-  body: {
+  body: {},
+  bodyHeader: {
+    fontWeight: "bold",
+  },
+  text: {
     color: COLORS.White,
-    size: 16,
+    fontFamily: "Verdana",
+    flexDirection: "row",
   },
 });
+
+export default Text;
