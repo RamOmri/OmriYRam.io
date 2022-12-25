@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Dimensions, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { HomeTabs } from "./src/router";
 import { COLORS } from "./src/styles";
 
