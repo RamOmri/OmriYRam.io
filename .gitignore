@@ -12,3 +12,14 @@ web-build/
 
 # macOS
 .DS_Store
+
+# Expo Native
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+
+server/**
+.cache/

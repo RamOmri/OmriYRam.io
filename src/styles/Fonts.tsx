@@ -11,13 +11,16 @@ type TextProps = Pick<
 };
 
 function getStyle(fontType: TextProps["fontType"], screenWidth: number) {
+  const titleSize = screenWidth * 0.028 > 26 ? screenWidth * 0.028 : 26;
+  const bodySize = screenWidth * 0.012 > 16 ? screenWidth * 0.012 : 16;
+  const headerSize = screenWidth * 0.017 > 20 ? screenWidth * 0.017 : 20;
   switch (fontType) {
     case "Title":
-      return [styles.title, { fontSize: screenWidth * 0.028 }];
+      return [styles.title, { fontSize: titleSize }];
     case "Body":
-      return [styles.body, { fontSize: screenWidth * 0.012 }];
+      return [styles.body, { fontSize: bodySize }];
     case "BodyHeader":
-      return [styles.bodyHeader, { fontSize: screenWidth * 0.017 }];
+      return [styles.bodyHeader, { fontSize: headerSize }];
     default:
       break;
   }

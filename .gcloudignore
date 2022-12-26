@@ -1,0 +1,8 @@
+!web-build/**
+!server/**
+node_modules/**
+src/**
+.expo/**
+.cache/**
+
+

@@ -8,16 +8,14 @@ import TabButton from "./TabButton";
 
 export const TabBar: FC<MaterialTopTabBarProps> = ({ state, navigation }) => {
   const { width } = useGetDimensions();
+  const height = 0.035 * width > 35 ? 0.035 * width : 35;
   return (
     <View style={styles.container}>
       <Text fontType="Title" style={styles.title}>
         Omri Y Ram
       </Text>
       <View
-        style={[
-          styles.tabContainer,
-          { height: 0.035 * width, borderRadius: width / 100 },
-        ]}
+        style={[styles.tabContainer, { height, borderRadius: width / 100 }]}
       >
         <TabButton
           label="Home"
