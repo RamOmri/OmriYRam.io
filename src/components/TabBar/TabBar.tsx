@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 6,
     borderBottomColor: COLORS.Maroon,
     backgroundColor: COLORS.White,
-    paddingLeft: 24,
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
