@@ -1,6 +1,5 @@
 import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
-import React from "react";
-import { FC } from "react";
+import React, { FC } from "react";
 import { View, StyleSheet } from "react-native";
 import { COLORS, Text } from "../../styles";
 import { useGetDimensions } from "../../utils";
@@ -11,9 +10,6 @@ export const TabBar: FC<MaterialTopTabBarProps> = ({ state, navigation }) => {
   const height = 0.035 * width > 35 ? 0.035 * width : 35;
   return (
     <View style={styles.container}>
-      <Text fontType="Title" style={styles.title}>
-        Omri Y Ram
-      </Text>
       <View
         style={[styles.tabContainer, { height, borderRadius: width / 100 }]}
       >

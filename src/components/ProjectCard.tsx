@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     width: "90%",
+    marginBottom: 20,
   },
   image: {
     height: "100%",
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: "25%",
     alignContent: "center",
+    marginRight: 20,
   },
   title: {
     marginBottom: 8,
