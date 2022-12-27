@@ -22,17 +22,8 @@ const HomeStack = () => {
 function HomeTabs() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="welcome"
-          component={Welcome}
-          options={{ title: "Welcome" }}
-        />
-        <Stack.Screen
-          name="Home"
-          component={HomeStack}
-          options={{ title: "Welcome" }}
-        />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={HomeStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

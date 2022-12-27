@@ -7,14 +7,17 @@ type TextProps = Pick<
   React.ComponentProps<typeof RawText>,
   "style" | "children"
 > & {
-  fontType: "Title" | "Body" | "BodyHeader";
+  fontType: "Title" | "Body" | "BodyHeader" | "LargeTitle";
 };
 
 function getStyle(fontType: TextProps["fontType"], screenWidth: number) {
-  const titleSize = screenWidth * 0.028 > 26 ? screenWidth * 0.028 : 26;
+  const largeTitleSize = screenWidth * 0.08 > 50 ? screenWidth * 0.08 : 50;
+  const titleSize = screenWidth * 0.04 > 26 ? screenWidth * 0.04 : 26;
   const bodySize = screenWidth * 0.012 > 16 ? screenWidth * 0.012 : 16;
   const headerSize = screenWidth * 0.017 > 20 ? screenWidth * 0.017 : 20;
   switch (fontType) {
+    case "LargeTitle":
+      return [styles.title, { fontSize: largeTitleSize }];
     case "Title":
       return [styles.title, { fontSize: titleSize }];
     case "Body":

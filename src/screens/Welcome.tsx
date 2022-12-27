@@ -1,14 +1,38 @@
-import React from "react";
-import { View, StyleSheet, ImageBackground } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  ImageBackground,
+  Animated,
+  Easing,
+} from "react-native";
 import { COLORS, Text } from "../styles";
 import { useGetDimensions } from "../utils";
 import { LinearGradient } from "expo-linear-gradient";
 import { Button } from "../components";
-import { useNavigation, Link } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import { Link } from "react-router-dom";
+import { AnimatedText } from "../components";
 
 export default function Welcome() {
   const { height, width } = useGetDimensions();
-  const navigation = useNavigation();
+  const [startSecondLine, setStartSecondLine] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [buttonOpacityAnimValue] = useState(new Animated.Value(0));
+
+  const buttonAnimation = () => {
+    Animated.timing(buttonOpacityAnimValue, {
+      toValue: 1,
+      duration: 1200,
+      easing: Easing.exp,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const animatedStyle = {
+    opacity: buttonOpacityAnimValue,
+  };
+
   return (
     <>
       <View style={{ flex: 1, backgroundColor: COLORS.Black }}>
@@ -18,18 +42,33 @@ export default function Welcome() {
         >
           <View style={{ height, width }}>
             <LinearGradient
-              // Button Linear Gradient
-              colors={[COLORS.Maroon, COLORS.MaroonOpaque]}
-              locations={[0, 0.2, 1]}
+              colors={[COLORS.White, COLORS.Maroon, COLORS.WhiteOpaque]}
+              locations={[0, 0.01, 0.6]}
               style={styles.container}
               start={{ x: 0, y: 0 }}
             >
-              <Text fontType="Title" style={styles.title}>
-                Hi, I am Omri
-              </Text>
-              <Link to={"/Home"}>
-                <Button label="Enter" />
-              </Link>
+              <View style={{ marginBottom: 100, alignItems: "center" }}>
+                <AnimatedText
+                  fontType="LargeTitle"
+                  content="Hi,"
+                  onComplete={() => setStartSecondLine(true)}
+                  writeSpeed={2}
+                />
+                {startSecondLine && (
+                  <AnimatedText
+                    neverEndingCursors
+                    fontType="LargeTitle"
+                    content="I am Omri"
+                    onComplete={buttonAnimation}
+                    writeSpeed={0}
+                  />
+                )}
+              </View>
+              <Animated.View style={animatedStyle}>
+                <Link to={"/Home"} style={{ color: COLORS.Maroon }}>
+                  <Button label="Enter" fontType="Title" />
+                </Link>
+              </Animated.View>
             </LinearGradient>
           </View>
         </ImageBackground>

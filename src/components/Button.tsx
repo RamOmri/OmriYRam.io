@@ -6,17 +6,18 @@ import { useGetDimensions } from "../utils";
 
 type Props = {
   label: string;
-} & Pick<React.ComponentProps<typeof TouchableOpacity>, "onPress">;
+} & Pick<React.ComponentProps<typeof TouchableOpacity>, "onPress" | "style"> &
+  Pick<React.ComponentProps<typeof Text>, "fontType">;
 
-export default function Button({ label, onPress }: Props) {
+export default function Button({ label, onPress, style, fontType }: Props) {
   const { width } = useGetDimensions();
   return (
     <TouchableOpacity
-      style={[styles.container, { borderRadius: width / 100 }]}
+      style={[styles.container, { borderRadius: width / 100 }, style]}
       activeOpacity={0.7}
       onPress={onPress}
     >
-      <Text fontType="BodyHeader">{label}</Text>
+      <Text fontType={fontType}>{label}</Text>
     </TouchableOpacity>
   );
 }

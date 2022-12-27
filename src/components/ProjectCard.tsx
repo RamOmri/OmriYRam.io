@@ -1,7 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { COLORS, Text } from "../styles";
 import { useGetDimensions } from "../utils";
+import AnimatedText from "./AnimatedText";
 
 type ProjectCardProps = {
   title: string;
@@ -10,6 +11,7 @@ type ProjectCardProps = {
 };
 
 const ProjectCard: FC<ProjectCardProps> = ({ title, description, image }) => {
+  const [hasTitle, setHasTitle] = useState(false);
   const { height, width } = useGetDimensions();
   const imageHeight = width > 700 ? height / 4 : undefined;
   return (
@@ -18,10 +20,16 @@ const ProjectCard: FC<ProjectCardProps> = ({ title, description, image }) => {
         <Image source={image} style={styles.image} resizeMode="contain" />
       </View>
       <View style={styles.infoContainer}>
-        <Text fontType="BodyHeader" style={styles.title}>
-          {title}
-        </Text>
-        <Text fontType="Body">{description}</Text>
+        <AnimatedText
+          content={title}
+          fontType="BodyHeader"
+          style={styles.title}
+          onComplete={() => setHasTitle(true)}
+          writeSpeed={70}
+        />
+        {hasTitle && (
+          <AnimatedText writeSpeed={90} fontType="Body" content={description} />
+        )}
       </View>
     </View>
   );

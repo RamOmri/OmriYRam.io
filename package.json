@@ -6,7 +6,7 @@
     "start": "expo start --web",
     "build": "expo export:web",
     "docker:build": "source .env && docker build -t $DOCKER_ID .",
-    "docker:start:local": "docker run -p 3000:3000 $DOCKER_ID",
+    "docker:start:local": "source .env && docker run -p 8080:8080 $DOCKER_ID",
     "submit": "source .env && yarn build && gcloud builds submit --tag gcr.io/$GOOGLE_PROJECT/$DOCKER_ID .",
     "deploy": "source .env && yarn submit && gcloud run deploy --image gcr.io/$GOOGLE_PROJECT/$DOCKER_ID:latest --platform managed"
   },
@@ -24,19 +24,22 @@
     "fbjs": "^3.0.4",
     "metro-core": "^0.73.6",
     "react": "18.1.0",
-    "react-dom": "18.1.0",
+    "react-dom": "^18.2.0",
     "react-native": "0.70.5",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-pager-view": "6.0.1",
+    "react-native-reanimated": "^2.13.0",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
     "react-native-tab-view": "^3.3.4",
-    "react-native-web": "^0.18.10"
+    "react-native-web": "^0.18.10",
+    "react-router-dom": "^6.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/fbjs": "^3.0.4",
     "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
     "@types/react-native": "~0.70.6",
     "babel-preset-expo": "^9.2.2",
     "dotenv": "^16.0.3",
