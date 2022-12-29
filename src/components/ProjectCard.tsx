@@ -24,11 +24,11 @@ const ProjectCard: FC<ProjectCardProps> = ({ title, description, image }) => {
           content={title}
           fontType="BodyHeader"
           style={styles.title}
-          onComplete={() => setHasTitle(true)}
+          onCompleted={() => setHasTitle(true)}
           writeSpeed={70}
         />
         {hasTitle && (
-          <AnimatedText writeSpeed={90} fontType="Body" content={description} />
+          <AnimatedText writeSpeed={30} fontType="Body" content={description} />
         )}
       </View>
     </View>

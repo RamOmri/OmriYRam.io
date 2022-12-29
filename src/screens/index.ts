@@ -1,5 +1,5 @@
-import Home from './Home'
+import Portfolio from './Portfolio'
 import Contact from "./Contact"
 import Welcome from './Welcome'
 
-export { Home, Contact, Welcome }
+export { Portfolio, Contact, Welcome }

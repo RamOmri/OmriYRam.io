@@ -1,4 +1,5 @@
-type RootStackParamList = {
-    Home: undefined;
+export type RootTabsParamList = {
+    Portfolio: undefined;
+    Contact: undefined;
   };
 

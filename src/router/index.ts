@@ -1,3 +1,3 @@
-import HomeTabs from './HomeRouter';
+import Router from './Router';
 
-export { HomeTabs };
+export { Router };

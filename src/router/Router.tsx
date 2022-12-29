@@ -3,30 +3,30 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Home, Contact, Welcome } from "../screens";
-import { withLayoutContext } from "expo-router";
+import { Portfolio, Contact } from "../screens";
 import { TabBar } from "../components";
+import { RootTabsParamList } from "./types";
 
 const Stack = createStackNavigator();
-const Tabs = createMaterialTopTabNavigator();
+const Tabs = createMaterialTopTabNavigator<RootTabsParamList>();
 
-const HomeStack = () => {
+const HomeTabs = () => {
   return (
-    <Tabs.Navigator tabBar={(props) => <TabBar {...props} />}>
-      <Tabs.Screen name="Home" component={Home} />
+    <Tabs.Navigator tabBar={(props) => <></>}>
+      <Tabs.Screen name="Portfolio" component={Portfolio} />
       <Tabs.Screen name="Contact" component={Contact} />
     </Tabs.Navigator>
   );
 };
 
-function HomeTabs() {
+function Router() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={HomeStack} />
+        <Stack.Screen name="Home" component={HomeTabs} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export default HomeTabs;
+export default Router;
