@@ -1,7 +1,5 @@
 import React, { FC, useState } from "react";
-import { View, Image, StyleSheet } from "react-native";
-import { COLORS, Text } from "../styles";
-import { useGetDimensions } from "../utils";
+import { View, Image, StyleSheet, useWindowDimensions } from "react-native";
 import AnimatedText from "./AnimatedText";
 
 type ProjectCardProps = {
@@ -12,7 +10,7 @@ type ProjectCardProps = {
 
 const ProjectCard: FC<ProjectCardProps> = ({ title, description, image }) => {
   const [hasTitle, setHasTitle] = useState(false);
-  const { height, width } = useGetDimensions();
+  const { height, width } = useWindowDimensions();
   const imageHeight = width > 700 ? height / 4 : undefined;
   return (
     <View style={[styles.container, { height: imageHeight }]}>

@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { Animated, Easing, StyleSheet } from "react-native";
+import {
+  Animated,
+  Easing,
+  StyleSheet,
+  useWindowDimensions,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text, COLORS } from "../styles";
-import { useGetDimensions } from "../utils";
 
 type Props = {
   label: string;
@@ -10,7 +14,7 @@ type Props = {
   Pick<React.ComponentProps<typeof Text>, "fontType">;
 
 export default function Button({ label, onPress, style, fontType }: Props) {
-  const { width } = useGetDimensions();
+  const { width } = useWindowDimensions();
   return (
     <TouchableOpacity
       style={[styles.container, { borderRadius: width / 100 }, style]}

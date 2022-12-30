@@ -1,49 +1,87 @@
 import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
-import React, { FC } from "react";
-import { View, StyleSheet } from "react-native";
-import { COLORS, Text } from "../../styles";
-import { useGetDimensions } from "../../utils";
+import React, { FC, useState, useEffect, useContext } from "react";
+import { StyleSheet, Animated, useWindowDimensions } from "react-native";
+import { COLORS } from "../../styles";
 import TabButton from "./TabButton";
+import { LinearGradient } from "expo-linear-gradient";
+import { ShouldRenderBarContext } from "../../context-providers";
 
-export const TabBar: FC<MaterialTopTabBarProps> = ({ state, navigation }) => {
-  const { width } = useGetDimensions();
+type Props = MaterialTopTabBarProps;
+
+export const TabBar: FC<Props> = ({ navigation, state }) => {
+  const { width } = useWindowDimensions();
   const height = 0.035 * width > 35 ? 0.035 * width : 35;
+  const [tabBarAnimValue] = useState(new Animated.Value(0));
+  const [ShouldRenderBar] = useContext(ShouldRenderBarContext);
+
+  useEffect(() => {
+    if (ShouldRenderBar) {
+      Animated.timing(tabBarAnimValue, {
+        toValue: 1,
+        duration: 600,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(tabBarAnimValue, {
+        toValue: 0,
+        duration: 600,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [ShouldRenderBar]);
+  const animStyle = {
+    transform: [
+      {
+        translateY: tabBarAnimValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: [-70, 0],
+        }),
+      },
+    ],
+    opacity: tabBarAnimValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+    }),
+  };
   return (
-    <View style={styles.container}>
-      <View
-        style={[styles.tabContainer, { height, borderRadius: width / 100 }]}
+    <Animated.View style={[styles.container, { height, ...animStyle }]}>
+      <LinearGradient
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          alignItems: "center",
+          width: "100%",
+        }}
+        colors={[COLORS.WhiteOpaque, COLORS.BlueOpaque, COLORS.Blue]}
+        locations={[0.5, 0.75, 1]}
       >
         <TabButton
           label="Home"
-          color="Black"
-          onPress={() => navigation.navigate("Home")}
+          color="White"
+          onPress={() => navigation.navigate("Portfolio")}
         />
-        <TabButton label="About me" color="Black" />
+        <TabButton label="About me" color="White" />
 
         <TabButton
           label="Contact"
-          color="Black"
+          color="White"
           onPress={() => navigation.navigate("Contact")}
         />
-      </View>
-    </View>
+      </LinearGradient>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
-  tabContainer: {
-    width: "75%",
-    borderBottomWidth: 6,
-    borderBottomColor: COLORS.Maroon,
-    backgroundColor: COLORS.White,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-  },
   container: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    borderBottomColor: COLORS.Maroon,
     alignItems: "center",
-    paddingTop: 40,
-    backgroundColor: COLORS.Black,
+    zIndex: 1,
   },
   title: {
     marginBottom: 12,

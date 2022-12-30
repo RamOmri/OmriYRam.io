@@ -1,3 +1,3 @@
-import useGetDimensions from "./useGetDimensions";
+import getProjectData from "./getProjectData";
 
-export { useGetDimensions }
+export { getProjectData }

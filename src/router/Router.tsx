@@ -6,16 +6,19 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { Portfolio, Contact } from "../screens";
 import { TabBar } from "../components";
 import { RootTabsParamList } from "./types";
+import { ShouldRenderBarProvider } from "../context-providers";
 
 const Stack = createStackNavigator();
 const Tabs = createMaterialTopTabNavigator<RootTabsParamList>();
 
 const HomeTabs = () => {
   return (
-    <Tabs.Navigator tabBar={(props) => <></>}>
-      <Tabs.Screen name="Portfolio" component={Portfolio} />
-      <Tabs.Screen name="Contact" component={Contact} />
-    </Tabs.Navigator>
+    <ShouldRenderBarProvider>
+      <Tabs.Navigator tabBar={(props) => <TabBar {...props} />}>
+        <Tabs.Screen name="Portfolio" component={Portfolio} />
+        <Tabs.Screen name="Contact" component={Contact} />
+      </Tabs.Navigator>
+    </ShouldRenderBarProvider>
   );
 };
 

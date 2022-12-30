@@ -1,6 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
-import { Text as RawText, StyleSheet, Dimensions } from "react-native";
-import { useGetDimensions } from "../utils";
+import {
+  Text as RawText,
+  StyleSheet,
+  Dimensions,
+  useWindowDimensions,
+} from "react-native";
 import { COLORS } from "./Colors";
 
 type TextProps = Pick<
@@ -30,7 +34,7 @@ function getStyle(fontType: TextProps["fontType"], screenWidth: number) {
 }
 
 const Text: FC<TextProps> = ({ style, children, fontType }) => {
-  const { width } = useGetDimensions();
+  const { width } = useWindowDimensions();
 
   return (
     <RawText style={[styles.text, style, ...(getStyle(fontType, width) ?? [])]}>
