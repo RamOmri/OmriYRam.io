@@ -31,7 +31,7 @@ export default function Portfolio() {
         }}
         scrollEventThrottle={100}
       >
-        <View style={[styles.heroContainer, { height }]}>
+        <View style={[styles.heroContainer, { height: height * 0.9 }]}>
           <ImageBackground
             source={require("../../assets/welcome.jpeg")}
             style={[
@@ -45,13 +45,13 @@ export default function Portfolio() {
               fontType="LargeTitle"
               content="Hi,"
               onCompleted={() => setRenderSecondLine(true)}
-              writeSpeed={200}
+              writeSpeed={100}
             />
             {renderSecondLine && (
               <AnimatedText
                 fontType="LargeTitle"
                 content="I am Omri"
-                writeSpeed={300}
+                writeSpeed={200}
                 neverEndingCursor
               />
             )}

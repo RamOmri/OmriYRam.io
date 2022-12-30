@@ -5,6 +5,7 @@ type returnData = {
     description: string,
     image: string,
     id: string,
+    hasAnimation?: boolean,
 }[]
 
 export default function getProjectData() {
@@ -13,7 +14,8 @@ export default function getProjectData() {
             title: "Minimax tic tac toe",
             description: "A react native app for playing tic tac toe against an agent utilizing the minimax algorithm",
             image: "minimax.jpeg",
-            id: "1"
+            id: "1",
+            hasAnimation: false,
         },
         {
             title: "Explainable Random forest",

@@ -2,14 +2,21 @@ import React, { FC, useRef, useState } from "react";
 import { View, Image, StyleSheet, useWindowDimensions } from "react-native";
 import AnimatedText from "./AnimatedText";
 import VisibilitySensor from "react-visibility-sensor";
+import { Text } from "../styles";
 
 type ProjectCardProps = {
   title: string;
   description: string;
   image: React.ComponentProps<typeof Image>["source"];
+  hasAnimation?: boolean;
 };
 
-const ProjectCard: FC<ProjectCardProps> = ({ title, description, image }) => {
+const ProjectCard: FC<ProjectCardProps> = ({
+  title,
+  description,
+  image,
+  hasAnimation = true,
+}) => {
   const [hasTitle, setHasTitle] = useState(false);
   const [shouldStartAnimation, setShouldStartAnimation] = useState(false);
   const { height, width } = useWindowDimensions();
@@ -27,21 +34,32 @@ const ProjectCard: FC<ProjectCardProps> = ({ title, description, image }) => {
         }}
       >
         <View style={styles.infoContainer}>
-          {shouldStartAnimation && (
-            <AnimatedText
-              content={title}
-              fontType="BodyHeader"
-              style={styles.title}
-              onCompleted={() => setHasTitle(true)}
-              writeSpeed={15}
-            />
-          )}
-          {hasTitle && (
-            <AnimatedText
-              writeSpeed={5}
-              fontType="Body"
-              content={description}
-            />
+          {hasAnimation ? (
+            <>
+              {shouldStartAnimation && (
+                <AnimatedText
+                  content={title}
+                  fontType="BodyHeader"
+                  style={styles.title}
+                  onCompleted={() => setHasTitle(true)}
+                  writeSpeed={15}
+                />
+              )}
+              {hasTitle && (
+                <AnimatedText
+                  writeSpeed={5}
+                  fontType="Body"
+                  content={description}
+                />
+              )}
+            </>
+          ) : (
+            <>
+              <Text fontType="BodyHeader" style={styles.title}>
+                {title}
+              </Text>
+              <Text fontType="Body">{description}</Text>
+            </>
           )}
         </View>
       </VisibilitySensor>
