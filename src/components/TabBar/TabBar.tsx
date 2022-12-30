@@ -49,18 +49,18 @@ export const TabBar: FC<Props> = ({ navigation, state }) => {
     <Animated.View style={[styles.container, { height, ...animStyle }]}>
       <LinearGradient
         style={styles.linearGradient}
-        colors={[COLORS.WhiteOpaque, COLORS.BlueOpaque, COLORS.Blue]}
-        locations={[0.5, 0.75, 1]}
+        colors={[COLORS.BlueOpaque, COLORS.Blue]}
+        locations={[0.8, 1]}
       >
         <TabButton
           label="Home"
-          color="White"
+          color="Black"
           onPress={() => navigation.navigate("Portfolio")}
         />
-        <TabButton label="About me" color="White" />
+        <TabButton label="About me" color="Black" />
         <TabButton
           label="Contact"
-          color="White"
+          color="Black"
           onPress={() => navigation.navigate("Contact")}
         />
       </LinearGradient>
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.Maroon,
     alignItems: "center",
     zIndex: 1,
+    backgroundColor: COLORS.White,
   },
   title: {
     marginBottom: 12,

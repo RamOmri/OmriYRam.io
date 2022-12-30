@@ -10,13 +10,13 @@ COPY web-build .
 
 COPY server .
 
-RUN ls -a
-
 # Install the dependencies
 RUN yarn --production
 
+RUN source .env
+
 # Expose the app's port
-EXPOSE 8080
+EXPOSE $DOCKER_PORT
 
 # Start the app
 CMD ["yarn", "start"]

@@ -18,6 +18,8 @@ export default function Portfolio() {
     ShouldRenderBarContext
   );
 
+  const data = getProjectData();
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -55,7 +57,7 @@ export default function Portfolio() {
             )}
           </ImageBackground>
         </View>
-        {getProjectData().map((item, index) => {
+        {data.map((item, index) => {
           const { image, id, ...restProps } = item;
 
           return (
