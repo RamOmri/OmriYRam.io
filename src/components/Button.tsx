@@ -1,10 +1,5 @@
-import React, { useState } from "react";
-import {
-  Animated,
-  Easing,
-  StyleSheet,
-  useWindowDimensions,
-} from "react-native";
+import React from "react";
+import { StyleSheet, useWindowDimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text, COLORS } from "../styles";
 

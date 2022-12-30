@@ -1,53 +1,42 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   StyleSheet,
-  Dimensions,
   useWindowDimensions,
-  Image,
   ImageBackground,
-  Animated,
   ScrollView,
 } from "react-native";
-import { Text, COLORS } from "../styles";
-import { AnimatedText, ProjectCard, TabBar } from "../components";
-import { render } from "react-dom";
+import { COLORS } from "../styles";
+import { AnimatedText, ProjectCard } from "../components";
+import { ShouldRenderBarContext } from "../context-providers";
+import { getProjectData } from "../utils";
 
 export default function Portfolio() {
-  const { height, width } = useWindowDimensions();
+  const { height } = useWindowDimensions();
   const [renderSecondLine, setRenderSecondLine] = useState(false);
-  const [isTabBarVisible, setIsTabBarVisible] = useState(false);
+  const [isTabBarVisible, setIsTabBarVisible] = useContext(
+    ShouldRenderBarContext
+  );
 
   return (
     <View style={styles.container}>
       <ScrollView
-        stickyHeaderIndices={[0]}
-        contentContainerStyle={{ width: "100%" }}
         onScroll={(e) => {
           const { y } = e.nativeEvent.contentOffset;
-          if (y > 0.1 * height && !isTabBarVisible) setIsTabBarVisible(true);
+          if (y > 0.1 * height && !isTabBarVisible) setIsTabBarVisible?.(true);
           else if (y < 0.1 * height && isTabBarVisible)
-            setIsTabBarVisible(false);
+            setIsTabBarVisible?.(false);
         }}
         scrollEventThrottle={100}
       >
-        <TabBar isTabBarVisible={isTabBarVisible} />
-        <View
-          style={{
-            height,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <View style={[styles.heroContainer, { height }]}>
           <ImageBackground
             source={require("../../assets/welcome.jpeg")}
             style={[
               {
                 height: height * 0.8,
-                width: "100%",
-                justifyContent: "center",
-                alignItems: "center",
               },
+              styles.hero,
             ]}
           >
             <AnimatedText
@@ -66,16 +55,17 @@ export default function Portfolio() {
             )}
           </ImageBackground>
         </View>
-        <ProjectCard
-          title="Minimax tic tac toe"
-          image={require("../../assets/minimax.jpeg")}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incid"
-        />
-        <ProjectCard
-          title="Nurse triaging"
-          image={require("../../assets/triage.jpeg")}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incid"
-        />
+        {getProjectData().map((item, index) => {
+          const { image, id, ...restProps } = item;
+
+          return (
+            <ProjectCard
+              {...restProps}
+              image={require(`../../assets/${image}`)}
+              key={id}
+            />
+          );
+        })}
       </ScrollView>
     </View>
   );
@@ -85,5 +75,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.Black,
+  },
+  heroContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  hero: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
   },
 });

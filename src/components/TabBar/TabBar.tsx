@@ -29,6 +29,7 @@ export const TabBar: FC<Props> = ({ navigation, state }) => {
       }).start();
     }
   }, [ShouldRenderBar]);
+
   const animStyle = {
     transform: [
       {
@@ -43,16 +44,11 @@ export const TabBar: FC<Props> = ({ navigation, state }) => {
       outputRange: [0, 1],
     }),
   };
+
   return (
     <Animated.View style={[styles.container, { height, ...animStyle }]}>
       <LinearGradient
-        style={{
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-          width: "100%",
-        }}
+        style={styles.linearGradient}
         colors={[COLORS.WhiteOpaque, COLORS.BlueOpaque, COLORS.Blue]}
         locations={[0.5, 0.75, 1]}
       >
@@ -62,7 +58,6 @@ export const TabBar: FC<Props> = ({ navigation, state }) => {
           onPress={() => navigation.navigate("Portfolio")}
         />
         <TabButton label="About me" color="White" />
-
         <TabButton
           label="Contact"
           color="White"
@@ -85,5 +80,12 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 12,
+  },
+  linearGradient: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    width: "100%",
   },
 });
