@@ -1,5 +1,5 @@
-import React, { FC, useRef, useState } from "react";
-import { View, Image, StyleSheet, useWindowDimensions } from "react-native";
+import React, { FC, useState } from "react";
+import { View, Image, StyleSheet, FlexStyle } from "react-native";
 import AnimatedText from "./AnimatedText";
 import VisibilitySensor from "react-visibility-sensor";
 import { Text } from "../styles";
@@ -9,6 +9,7 @@ type ProjectCardProps = {
   description: string;
   image: React.ComponentProps<typeof Image>["source"];
   hasAnimation?: boolean;
+  layoutStyle?: FlexStyle;
 };
 
 const ProjectCard: FC<ProjectCardProps> = ({
@@ -16,23 +17,24 @@ const ProjectCard: FC<ProjectCardProps> = ({
   description,
   image,
   hasAnimation = true,
+  layoutStyle,
 }) => {
   const [hasTitle, setHasTitle] = useState(false);
   const [shouldStartAnimation, setShouldStartAnimation] = useState(false);
-  const { height, width } = useWindowDimensions();
-  const imageHeight = width > 700 ? height / 4 : undefined;
 
   return (
-    <View style={[styles.container, { height: imageHeight }]}>
-      <View style={styles.imageContainer}>
-        <Image source={image} style={styles.image} resizeMode="contain" />
-      </View>
-      <VisibilitySensor
-        partialVisibility
-        onChange={(isVisible: boolean) => {
-          if (!shouldStartAnimation) setShouldStartAnimation(isVisible);
-        }}
-      >
+    <VisibilitySensor
+      partialVisibility
+      onChange={(isVisible: boolean) => {
+        if (!shouldStartAnimation && hasAnimation)
+          setShouldStartAnimation(isVisible);
+      }}
+    >
+      <View style={[styles.container, layoutStyle]}>
+        <View style={styles.imageContainer}>
+          <Image source={image} style={styles.image} resizeMode="contain" />
+        </View>
+
         <View style={styles.infoContainer}>
           {hasAnimation ? (
             <>
@@ -62,29 +64,27 @@ const ProjectCard: FC<ProjectCardProps> = ({
             </>
           )}
         </View>
-      </VisibilitySensor>
-    </View>
+      </View>
+    </VisibilitySensor>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    width: "90%",
-    marginBottom: 20,
+    paddingBottom: 30,
   },
   image: {
-    height: "100%",
     width: "100%",
-    alignItems: "center",
+    aspectRatio: 1,
   },
   infoContainer: {
-    width: "70%",
+    flex: 3,
+    paddingHorizontal: 20,
   },
   imageContainer: {
-    width: "25%",
-    alignContent: "center",
-    marginRight: 20,
+    flex: 1,
+    paddingTop: 5,
   },
   title: {
     marginBottom: 8,

@@ -25,8 +25,9 @@ export default function Portfolio() {
       <ScrollView
         onScroll={(e) => {
           const { y } = e.nativeEvent.contentOffset;
-          if (y > 0.1 * height && !isTabBarVisible) setIsTabBarVisible?.(true);
-          else if (y < 0.1 * height && isTabBarVisible)
+          if (y >= 0.05 * height && !isTabBarVisible)
+            setIsTabBarVisible?.(true);
+          else if (y < 0.05 * height && isTabBarVisible)
             setIsTabBarVisible?.(false);
         }}
         scrollEventThrottle={100}
@@ -45,7 +46,7 @@ export default function Portfolio() {
               fontType="LargeTitle"
               content="Hi,"
               onCompleted={() => setRenderSecondLine(true)}
-              writeSpeed={100}
+              writeSpeed={400}
             />
             {renderSecondLine && (
               <AnimatedText
@@ -57,17 +58,19 @@ export default function Portfolio() {
             )}
           </ImageBackground>
         </View>
-        {data.map((item, index) => {
-          const { image, id, ...restProps } = item;
+        <View style={styles.portfolioContainer}>
+          {data.map((item) => {
+            const { image, id, ...restProps } = item;
 
-          return (
-            <ProjectCard
-              {...restProps}
-              image={require(`../../assets/${image}`)}
-              key={id}
-            />
-          );
-        })}
+            return (
+              <ProjectCard
+                {...restProps}
+                image={require(`../../assets/${image}`)}
+                key={id}
+              />
+            );
+          })}
+        </View>
       </ScrollView>
     </View>
   );
@@ -86,5 +89,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
+  },
+  portfolioContainer: {
+    padding: 20,
   },
 });
