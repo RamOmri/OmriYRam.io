@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Animated, Easing, StyleSheet } from "react-native";
+import { Animated, Easing } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text, COLORS } from "../../styles";
 import Hoverable from "../Hoverable";
@@ -15,7 +15,7 @@ export default function TabButton({ label, color, onPress }: Props) {
   const onHoverIn = () => {
     Animated.timing(scaleValue, {
       toValue: 1.1,
-      duration: 200,
+      duration: 300,
       easing: Easing.linear,
       useNativeDriver: true,
     }).start();
@@ -24,7 +24,7 @@ export default function TabButton({ label, color, onPress }: Props) {
   const onHoverOut = () => {
     Animated.timing(scaleValue, {
       toValue: 1,
-      duration: 200,
+      duration: 300,
       easing: Easing.linear,
       useNativeDriver: true,
     }).start();

@@ -1,27 +1,34 @@
-import { ViewToken } from "react-native"
+import React from "react"
+import { ProjectCard } from "../components"
 
-type returnData = {
-    title: string,
-    description: string,
-    image: string,
-    id: string,
-    hasAnimation?: boolean,
-}[]
+type ReturnData = ({
+    image: string;
+    id: string;
+} & Pick<React.ComponentProps<typeof ProjectCard>, "title" | "description" | "categories" | "hasAnimation">)[]
 
 export default function getProjectData() {
     return [
         {
-            title: "Minimax tic tac toe",
+            title: "Minimax Tic Tac Toe",
             description: "A react native app for playing tic tac toe against an agent utilizing the minimax algorithm",
             image: "minimax.jpeg",
             id: "1",
             hasAnimation: false,
+            categories: ["react-native", "algorithms", "minimax", "game theory", "AI"]
         },
         {
             title: "Explainable Random forest",
             description: "As machine learning algorithms make progressively more consequential decisions over our lives, the explainability of the models decision making process becomes more pertinent. Thus in this project I attempt to implement an explainable yet complex random forest model",
             image: "explainable_randomforest.jpeg",
-            id: "2"
+            id: "2",
+            categories: ["Machine learning", "Xai", "random forest"]
+        },
+        {
+            title: "This website",
+            description: "The motivation behind this website and a technical explanation on how it was implemented",
+            image: "self_portrait.jpeg",
+            id: "3",
+            categories: ["react-native", "contentful", "gcp", "express", "redux", "react context provider"]
         }
-    ] as returnData
+    ] as ReturnData
 }

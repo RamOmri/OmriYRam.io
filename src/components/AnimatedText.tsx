@@ -24,12 +24,12 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
   const animateCursor = () => {
     Animated.timing(cursorOpacity, {
       toValue: 1,
-      duration: writeSpeed * 2,
+      duration: 300,
       useNativeDriver: true,
     }).start(() => {
       Animated.timing(cursorOpacity, {
         toValue: 0,
-        duration: writeSpeed * 2,
+        duration: 300,
         useNativeDriver: true,
       }).start(() => {
         animateCursor();
@@ -59,7 +59,7 @@ const AnimatedText: React.FC<AnimatedTextProps> = ({
       <Text {...TextProps} fontType={fontType}>
         {content.substring(0, textIndex)}
         {hasCursor && (
-          <Animated.View style={{ opacity: cursorOpacity, ...styles.cursor }}>
+          <Animated.View style={[{ opacity: cursorOpacity }, styles.cursor]}>
             <Text {...TextProps} fontType={fontType}>
               |
             </Text>

@@ -1,8 +1,17 @@
 import React, { FC, useState } from "react";
-import { View, Image, StyleSheet, FlexStyle } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  FlexStyle,
+  TouchableOpacity,
+  Animated,
+  Easing,
+} from "react-native";
 import AnimatedText from "./AnimatedText";
 import VisibilitySensor from "react-visibility-sensor";
 import { Text } from "../styles";
+import Hoverable from "./Hoverable";
 
 type ProjectCardProps = {
   title: string;
@@ -10,6 +19,40 @@ type ProjectCardProps = {
   image: React.ComponentProps<typeof Image>["source"];
   hasAnimation?: boolean;
   layoutStyle?: FlexStyle;
+  categories?: string[];
+  onPress?: () => void;
+};
+
+type NonAnimatedTextProps = Pick<
+  ProjectCardProps,
+  "title" | "description" | "categories"
+>;
+
+const NonAnimatedText: FC<NonAnimatedTextProps> = ({
+  description,
+  title,
+  categories,
+}) => {
+  return (
+    <>
+      <Text fontType="BodyHeader" style={styles.textLayout}>
+        {title}
+      </Text>
+      <Text style={styles.textLayout} fontType="Body">
+        {description}
+      </Text>
+      {categories && (
+        <>
+          <Text style={styles.categories} fontType="Body">
+            Categories:{" "}
+          </Text>
+          <Text style={styles.textLayout} fontType="Body">
+            {categories.map((el) => `${el}, `)}
+          </Text>
+        </>
+      )}
+    </>
+  );
 };
 
 const ProjectCard: FC<ProjectCardProps> = ({
@@ -18,9 +61,34 @@ const ProjectCard: FC<ProjectCardProps> = ({
   image,
   hasAnimation = true,
   layoutStyle,
+  categories,
+  onPress,
 }) => {
-  const [hasTitle, setHasTitle] = useState(false);
   const [shouldStartAnimation, setShouldStartAnimation] = useState(false);
+  const [hasDescription, setHasDescription] = useState(false);
+  const [scaleValue] = useState(new Animated.Value(1));
+
+  const onHoverIn = () => {
+    Animated.timing(scaleValue, {
+      toValue: 1.05,
+      duration: 200,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const onHoverOut = () => {
+    Animated.timing(scaleValue, {
+      toValue: 1,
+      duration: 200,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const animatedStyle = {
+    transform: [{ scale: scaleValue }],
+  };
 
   return (
     <VisibilitySensor
@@ -30,41 +98,69 @@ const ProjectCard: FC<ProjectCardProps> = ({
           setShouldStartAnimation(isVisible);
       }}
     >
-      <View style={[styles.container, layoutStyle]}>
-        <View style={styles.imageContainer}>
-          <Image source={image} style={styles.image} resizeMode="contain" />
-        </View>
+      <Hoverable onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
+        <Animated.View style={animatedStyle}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={[styles.container, layoutStyle]}
+            onPress={onPress}
+          >
+            <View style={styles.imageContainer}>
+              <Image source={image} style={styles.image} resizeMode="contain" />
+            </View>
 
-        <View style={styles.infoContainer}>
-          {hasAnimation ? (
-            <>
-              {shouldStartAnimation && (
-                <AnimatedText
-                  content={title}
-                  fontType="BodyHeader"
-                  style={styles.title}
-                  onCompleted={() => setHasTitle(true)}
-                  writeSpeed={15}
+            <View style={styles.infoContainer}>
+              {hasAnimation ? (
+                <>
+                  {shouldStartAnimation && (
+                    <AnimatedText
+                      content={title}
+                      fontType="BodyHeader"
+                      style={styles.textLayout}
+                      writeSpeed={15}
+                    />
+                  )}
+                  {shouldStartAnimation && (
+                    <AnimatedText
+                      writeSpeed={1}
+                      fontType="Body"
+                      style={styles.textLayout}
+                      content={description}
+                      onCompleted={() => setHasDescription(true)}
+                    />
+                  )}
+                  {categories && hasDescription && (
+                    <>
+                      <AnimatedText
+                        writeSpeed={0.5}
+                        fontType="Body"
+                        style={styles.categories}
+                        content={`Categories: `}
+                        onCompleted={() => setHasDescription(true)}
+                      />
+                      <AnimatedText
+                        neverEndingCursor
+                        writeSpeed={1}
+                        fontType="Body"
+                        content={`${categories[0]}, ${categories
+                          .slice(1, categories.length)
+                          .map((el) => ` ${el}`)}`}
+                        onCompleted={() => setHasDescription(true)}
+                      />
+                    </>
+                  )}
+                </>
+              ) : (
+                <NonAnimatedText
+                  description={description}
+                  title={title}
+                  categories={categories}
                 />
               )}
-              {hasTitle && (
-                <AnimatedText
-                  writeSpeed={5}
-                  fontType="Body"
-                  content={description}
-                />
-              )}
-            </>
-          ) : (
-            <>
-              <Text fontType="BodyHeader" style={styles.title}>
-                {title}
-              </Text>
-              <Text fontType="Body">{description}</Text>
-            </>
-          )}
-        </View>
-      </View>
+            </View>
+          </TouchableOpacity>
+        </Animated.View>
+      </Hoverable>
     </VisibilitySensor>
   );
 };
@@ -85,9 +181,14 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     paddingTop: 5,
+    borderRadius: 30,
+    overflow: "hidden",
   },
-  title: {
+  textLayout: {
     marginBottom: 8,
+  },
+  categories: {
+    fontWeight: "bold",
   },
 });
 

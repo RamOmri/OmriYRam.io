@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   portfolioContainer: {
-    padding: 20,
+    paddingHorizontal: 60,
   },
 });
