@@ -1,3 +1,5 @@
-import Router from './Router';
+import HomeRouter from './HomeRouter';
+import { RootTabsParamList } from './types';
+import WebRouter from './WebRouter';
 
-export { Router };
+export { HomeRouter, RootTabsParamList, WebRouter };

@@ -1,5 +1,5 @@
 import Portfolio from './Portfolio'
 import Contact from "./Contact"
-import Welcome from './Welcome'
+import Project from "./Project"
 
-export { Portfolio, Contact, Welcome }
+export { Portfolio, Contact, Project }
