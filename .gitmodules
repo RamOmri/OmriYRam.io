@@ -2,5 +2,5 @@
 	path = server
 	url = git@github.com:RamOmri/omriyram.io-server.git
 [submodule "portfolio/minimax"]
-	path = portfolio/minimax
+	path = portfolio/tictactoe
 	url = git@github.com:RamOmri/OmriYRam-TicTacToe.git
