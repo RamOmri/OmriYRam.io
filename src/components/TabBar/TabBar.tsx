@@ -1,6 +1,6 @@
 import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
 import React, { FC, useState, useEffect, useContext } from "react";
-import { StyleSheet, Animated, useWindowDimensions } from "react-native";
+import { StyleSheet, Animated, useWindowDimensions, View } from "react-native";
 import { COLORS } from "../../styles";
 import TabButton from "./TabButton";
 import { LinearGradient } from "expo-linear-gradient";
@@ -41,29 +41,25 @@ export const TabBar: FC<Props> = ({ navigation, state }) => {
     ],
     opacity: tabBarAnimValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1],
+      outputRange: [0, 0.85],
     }),
   };
 
   return (
     <Animated.View style={[styles.container, { height, ...animStyle }]}>
-      <LinearGradient
-        style={styles.linearGradient}
-        colors={[COLORS.BlueOpaque, COLORS.Blue]}
-        locations={[0.8, 1]}
-      >
+      <View style={styles.buttonContainer}>
         <TabButton
           label="Home"
-          color="Black"
+          color="White"
           onPress={() => navigation.navigate("Portfolio")}
         />
-        <TabButton label="About me" color="Black" />
+        <TabButton label="About me" color="White" />
         <TabButton
           label="Contact"
-          color="Black"
+          color="White"
           onPress={() => navigation.navigate("Contact")}
         />
-      </LinearGradient>
+      </View>
     </Animated.View>
   );
 };
@@ -77,12 +73,12 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.LightBlue,
     alignItems: "center",
     zIndex: 1,
-    backgroundColor: COLORS.White,
+    backgroundColor: COLORS.Black,
   },
   title: {
     marginBottom: 12,
   },
-  linearGradient: {
+  buttonContainer: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-evenly",

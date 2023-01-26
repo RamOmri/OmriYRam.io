@@ -53,11 +53,14 @@ export default function Portfolio() {
             const { image, id, ...restProps } = item;
 
             return (
-              <ProjectCard
-                {...restProps}
-                image={require(`../../assets/${image}`)}
-                key={id}
-              />
+              <>
+                <ProjectCard
+                  {...restProps}
+                  image={require(`../../assets/${image}`)}
+                  key={id}
+                />
+                <View style={styles.portfolioSpacer} />
+              </>
             );
           })}
         </View>
@@ -77,5 +80,9 @@ const styles = StyleSheet.create({
   },
   portfolioContainer: {
     paddingHorizontal: 60,
+    paddingTop: 24,
+  },
+  portfolioSpacer: {
+    height: 24,
   },
 });

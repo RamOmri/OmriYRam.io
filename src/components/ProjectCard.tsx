@@ -98,6 +98,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
         if (!shouldStartAnimation && hasAnimation)
           setShouldStartAnimation(isVisible);
       }}
+      style={styles.visSensor}
     >
       <Link to="/Project" style={styles.link}>
         <Hoverable onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
@@ -146,7 +147,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
                         />
                         <AnimatedText
                           neverEndingCursor
-                          writeSpeed={1}
+                          writeSpeed={100}
                           fontType="Body"
                           content={`${categories[0]}, ${categories
                             .slice(1, categories.length)
@@ -176,6 +177,19 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     paddingBottom: 30,
+    width: "75%",
+    shadowColor: COLORS.Blue,
+    shadowOffset: {
+      width: 4,
+      height: 4,
+    },
+    shadowOpacity: 0.51,
+    shadowRadius: 13.16,
+    borderRadius: 30,
+    padding: 16,
+  },
+  visSensor: {
+    width: "75%",
   },
   image: {
     width: "100%",
