@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { COLORS } from "../styles";
-import TicTacToeRouter from "../../portfolio/minimax";
+import TicTacToeRouter from "../../portfolio/tictactoe";
 
 export default function Project() {
   return (

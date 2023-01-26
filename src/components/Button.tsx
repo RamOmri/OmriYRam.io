@@ -23,7 +23,7 @@ export default function Button({ label, onPress, style, fontType }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.Maroon,
+    backgroundColor: COLORS.LightBlue,
     paddingHorizontal: 16,
     paddingVertical: 8,
   },

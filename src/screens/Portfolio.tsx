@@ -3,11 +3,10 @@ import {
   View,
   StyleSheet,
   useWindowDimensions,
-  ImageBackground,
   ScrollView,
 } from "react-native";
 import { COLORS } from "../styles";
-import { AnimatedText, ProjectCard } from "../components";
+import { AnimatedGraph, AnimatedText, ProjectCard } from "../components";
 import { ShouldRenderBarContext } from "../context-providers";
 import { getProjectData } from "../utils";
 
@@ -32,31 +31,22 @@ export default function Portfolio() {
         }}
         scrollEventThrottle={100}
       >
-        <View style={[styles.heroContainer, { height: height * 0.9 }]}>
-          <ImageBackground
-            source={require("../../assets/welcome.jpeg")}
-            style={[
-              {
-                height: height * 0.8,
-              },
-              styles.hero,
-            ]}
-          >
+        <AnimatedGraph style={StyleSheet.absoluteFill} />
+        <View style={[styles.heroContainer, { height }]}>
+          <AnimatedText
+            fontType="LargeTitle"
+            content="Hi,"
+            onCompleted={() => setRenderSecondLine(true)}
+            writeSpeed={400}
+          />
+          {renderSecondLine && (
             <AnimatedText
               fontType="LargeTitle"
-              content="Hi,"
-              onCompleted={() => setRenderSecondLine(true)}
-              writeSpeed={400}
+              content="I am Omri"
+              writeSpeed={200}
+              neverEndingCursor
             />
-            {renderSecondLine && (
-              <AnimatedText
-                fontType="LargeTitle"
-                content="I am Omri"
-                writeSpeed={200}
-                neverEndingCursor
-              />
-            )}
-          </ImageBackground>
+          )}
         </View>
         <View style={styles.portfolioContainer}>
           {data.map((item) => {
@@ -84,11 +74,6 @@ const styles = StyleSheet.create({
   heroContainer: {
     justifyContent: "center",
     alignItems: "center",
-  },
-  hero: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
   },
   portfolioContainer: {
     paddingHorizontal: 60,

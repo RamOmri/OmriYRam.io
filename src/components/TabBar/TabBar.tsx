@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    borderBottomColor: COLORS.Maroon,
+    borderBottomColor: COLORS.LightBlue,
     alignItems: "center",
     zIndex: 1,
     backgroundColor: COLORS.White,
