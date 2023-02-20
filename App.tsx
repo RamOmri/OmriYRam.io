@@ -1,8 +1,14 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import { COLORS } from "./src/styles";
-import { WebRouter } from "./src/router";
+import React from 'react'
+import { WebRouter } from './src/router'
+import { createStore } from './src/state'
+import StoreProvider from './src/state/StoreProvider'
+
+const store = createStore()
 
 export default function App() {
-  return <WebRouter />;
+  return (
+    <StoreProvider store={store}>
+      <WebRouter />
+    </StoreProvider>
+  )
 }

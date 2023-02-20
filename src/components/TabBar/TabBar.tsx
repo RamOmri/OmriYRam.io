@@ -53,7 +53,11 @@ export const TabBar: FC<Props> = ({ navigation, state }) => {
           color="White"
           onPress={() => navigation.navigate("Portfolio")}
         />
-        <TabButton label="About me" color="White" />
+        <TabButton
+          label="About me"
+          color="White"
+          onPress={() => navigation.navigate("AboutMe")}
+        />
         <TabButton
           label="Contact"
           color="White"

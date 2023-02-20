@@ -92,84 +92,86 @@ const ProjectCard: FC<ProjectCardProps> = ({
   };
 
   return (
-    <VisibilitySensor
-      partialVisibility
-      onChange={(isVisible: boolean) => {
-        if (!shouldStartAnimation && hasAnimation)
-          setShouldStartAnimation(isVisible);
-      }}
-      style={styles.visSensor}
-    >
-      <Link to="/Project" style={styles.link}>
-        <Hoverable onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
-          <Animated.View style={animatedStyle}>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              style={[styles.container, layoutStyle]}
-              onPress={onPress}
-            >
-              <View style={styles.imageContainer}>
-                <Image
-                  source={image}
-                  style={styles.image}
-                  resizeMode="contain"
-                />
-              </View>
-
-              <View style={styles.infoContainer}>
-                {hasAnimation ? (
-                  <>
-                    {shouldStartAnimation && (
-                      <AnimatedText
-                        content={title}
-                        fontType="BodyHeader"
-                        style={styles.textLayout}
-                        writeSpeed={15}
-                      />
-                    )}
-                    {shouldStartAnimation && (
-                      <AnimatedText
-                        writeSpeed={1}
-                        fontType="Body"
-                        style={styles.textLayout}
-                        content={description}
-                        onCompleted={() => setHasDescription(true)}
-                      />
-                    )}
-                    {categories && hasDescription && (
-                      <>
-                        <AnimatedText
-                          writeSpeed={0.5}
-                          fontType="Body"
-                          style={styles.categories}
-                          content={`Categories: `}
-                          onCompleted={() => setHasDescription(true)}
-                        />
-                        <AnimatedText
-                          neverEndingCursor
-                          writeSpeed={100}
-                          fontType="Body"
-                          content={`${categories[0]}, ${categories
-                            .slice(1, categories.length)
-                            .map((el) => ` ${el}`)}`}
-                          onCompleted={() => setHasDescription(true)}
-                        />
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <NonAnimatedText
-                    description={description}
-                    title={title}
-                    categories={categories}
+    <View>
+      <VisibilitySensor
+        partialVisibility
+        onChange={(isVisible: boolean) => {
+          if (!shouldStartAnimation && hasAnimation)
+            setShouldStartAnimation(isVisible);
+        }}
+        style={styles.visSensor}
+      >
+        <Link to="/Project" style={styles.link}>
+          <Hoverable onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
+            <Animated.View style={animatedStyle}>
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={[styles.container, layoutStyle]}
+                onPress={onPress}
+              >
+                <View style={styles.imageContainer}>
+                  <Image
+                    source={image}
+                    style={styles.image}
+                    resizeMode="contain"
                   />
-                )}
-              </View>
-            </TouchableOpacity>
-          </Animated.View>
-        </Hoverable>
-      </Link>
-    </VisibilitySensor>
+                </View>
+
+                <View style={styles.infoContainer}>
+                  {hasAnimation ? (
+                    <>
+                      {shouldStartAnimation && (
+                        <AnimatedText
+                          content={title}
+                          fontType="BodyHeader"
+                          style={styles.textLayout}
+                          writeSpeed={15}
+                        />
+                      )}
+                      {shouldStartAnimation && (
+                        <AnimatedText
+                          writeSpeed={1}
+                          fontType="Body"
+                          style={styles.textLayout}
+                          content={description}
+                          onCompleted={() => setHasDescription(true)}
+                        />
+                      )}
+                      {categories && hasDescription && (
+                        <>
+                          <AnimatedText
+                            writeSpeed={0.5}
+                            fontType="Body"
+                            style={styles.categories}
+                            content={`Categories: `}
+                            onCompleted={() => setHasDescription(true)}
+                          />
+                          <AnimatedText
+                            neverEndingCursor
+                            writeSpeed={100}
+                            fontType="Body"
+                            content={`${categories[0]}, ${categories
+                              .slice(1, categories.length)
+                              .map((el) => ` ${el}`)}`}
+                            onCompleted={() => setHasDescription(true)}
+                          />
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <NonAnimatedText
+                      description={description}
+                      title={title}
+                      categories={categories}
+                    />
+                  )}
+                </View>
+              </TouchableOpacity>
+            </Animated.View>
+          </Hoverable>
+        </Link>
+      </VisibilitySensor>
+    </View>
   );
 };
 
@@ -177,7 +179,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     paddingBottom: 30,
-    width: "75%",
     shadowColor: COLORS.Blue,
     shadowOffset: {
       width: 4,
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   visSensor: {
-    width: "75%",
+    width: "100%",
   },
   image: {
     width: "100%",

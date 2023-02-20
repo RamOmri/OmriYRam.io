@@ -11,7 +11,7 @@ import { ShouldRenderBarContext } from "../context-providers";
 import { getProjectData } from "../utils";
 
 export default function Portfolio() {
-  const { height } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
   const [renderSecondLine, setRenderSecondLine] = useState(false);
   const [isTabBarVisible, setIsTabBarVisible] = useContext(
     ShouldRenderBarContext
@@ -29,6 +29,7 @@ export default function Portfolio() {
           else if (y < 0.05 * height && isTabBarVisible)
             setIsTabBarVisible?.(false);
         }}
+        style={styles.scroll}
         scrollEventThrottle={100}
       >
         <AnimatedGraph style={StyleSheet.absoluteFill} />
@@ -48,7 +49,12 @@ export default function Portfolio() {
             />
           )}
         </View>
-        <View style={styles.portfolioContainer}>
+        <View
+          style={[
+            styles.portfolioContainer,
+            { paddingHorizontal: 0.1 * width },
+          ]}
+        >
           {data.map((item) => {
             const { image, id, ...restProps } = item;
 
@@ -73,16 +79,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.Black,
+    alignItems: "center",
   },
   heroContainer: {
     justifyContent: "center",
     alignItems: "center",
   },
   portfolioContainer: {
-    paddingHorizontal: 60,
     paddingTop: 24,
   },
   portfolioSpacer: {
     height: 24,
+  },
+  scroll: {
+    width: "100%",
   },
 });
