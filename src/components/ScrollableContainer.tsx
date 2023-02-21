@@ -10,9 +10,15 @@ import { ShouldRenderBarContext } from "../context-providers";
 
 type Props = {
   children?: React.ReactNode;
+  contentContainerStyle?: React.ComponentProps<
+    typeof ScrollView
+  >["contentContainerStyle"];
 };
 
-const ScrollableContainer: React.FC<Props> = ({ children }) => {
+const ScrollableContainer: React.FC<Props> = ({
+  children,
+  contentContainerStyle,
+}) => {
   const [isTabBarVisible, setIsTabBarVisible] = useContext(
     ShouldRenderBarContext
   );
@@ -32,6 +38,7 @@ const ScrollableContainer: React.FC<Props> = ({ children }) => {
         onScroll={handleScroll}
         style={styles.scroll}
         scrollEventThrottle={100}
+        contentContainerStyle={contentContainerStyle}
       >
         {children}
       </ScrollView>

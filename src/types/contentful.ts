@@ -1,8 +1,5 @@
 
 export type ContentfulAsset = {
-    title?: string;
-    description?: string;
-    file: {
         url: string;
         details?: {
             size: number;
@@ -13,15 +10,14 @@ export type ContentfulAsset = {
         };
         fileName?: string;
         contentType?: string;
-    };
 };
 
 export type AboutMeContent = Partial<{
     title: string;
-    profileImage: ContentfulAsset["file"];
-    stockImage1: ContentfulAsset["file"];
-    stockImage2: ContentfulAsset["file"];
-    stockImage3: ContentfulAsset["file"];
+    profileImage: ContentfulAsset;
+    stockImage1: ContentfulAsset;
+    stockImage2: ContentfulAsset;
+    stockImage3: ContentfulAsset;
     introduction: string;
     personalQualities: string;
     careerGoals: string;
@@ -32,16 +28,16 @@ export type AboutMeContent = Partial<{
 export type ContentFulAboutMe = Partial<{
     title: string;
     stockImage1: {
-        fields: ContentfulAsset;
+        fields: {file: ContentfulAsset};
     }
     stockImage2: {
-        fields: ContentfulAsset;
+        fields: {file: ContentfulAsset};
     }
     stockImage3: {
-        fields: ContentfulAsset;
+        fields: {file: ContentfulAsset};
     }
     profileImage: {
-        fields: ContentfulAsset;
+        fields: {file: ContentfulAsset};
     }
     introduction: string;
     personalQualities: string;

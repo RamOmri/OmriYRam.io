@@ -27,16 +27,12 @@ type AboutMeState = {
         content_type: 'aboutMe',
       }) satisfies ContentFulResponse;
       const contentfulAboutMe = response.items[0].fields as ContentFulAboutMe;
-      const profileImage = JSON.stringify(contentfulAboutMe.profileImage?.fields.file);
-      const image1 = JSON.stringify(contentfulAboutMe.stockImage1?.fields.file);
-      const image2 = JSON.stringify(contentfulAboutMe.stockImage2?.fields.file);
-      const image3 = JSON.stringify(contentfulAboutMe.stockImage3?.fields.file);
       return {
         ...contentfulAboutMe,
-        profileImage: profileImage ? `https${profileImage}` : profileImage,
-        stockImage1: image1 ? `https${image1}` : image1,
-        stockImage2: image2 ? `https${image2}` : image2,
-        stockImage3: image3 ? `https${image3}` : image3,
+        profileImage: contentfulAboutMe.profileImage?.fields.file,
+        stockImage1: contentfulAboutMe.stockImage1?.fields.file,
+        stockImage2: contentfulAboutMe.stockImage2?.fields.file,
+        stockImage3: contentfulAboutMe.stockImage3?.fields.file,
       };
         }
         catch(e) { console.error(e) }
