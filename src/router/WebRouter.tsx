@@ -1,8 +1,10 @@
 import React, { Suspense, lazy } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { NavigationContainer } from "@react-navigation/native";
 
 const HomeRouter = lazy(() => import("./HomeRouter"));
-const Project = lazy(() => import("../screens/Project"));
+const AboutMe = lazy(() => import("../screens/AboutMe"));
+const Contact = lazy(() => import("../screens/Contact"));
 
 export default function WebRouter() {
   // fix body having "display: flex", which messes up ScrollView scrollbars
@@ -18,7 +20,7 @@ export default function WebRouter() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
+          path="/:projectID?"
           element={
             <Suspense fallback={<div>Loading...</div>}>
               <HomeRouter />
@@ -26,10 +28,22 @@ export default function WebRouter() {
           }
         />
         <Route
-          path="/Project"
+          path="/AboutMe"
           element={
             <Suspense fallback={<div>Loading...</div>}>
-              <Project />
+              <NavigationContainer>
+                <AboutMe />
+              </NavigationContainer>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/Contact"
+          element={
+            <Suspense fallback={<div>Loading...</div>}>
+              <NavigationContainer>
+                <Contact />
+              </NavigationContainer>
             </Suspense>
           }
         />

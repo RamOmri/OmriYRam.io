@@ -1,5 +1,5 @@
-import React, { useState, FC, useEffect, useRef } from "react";
-import { View, FlexStyle, Animated, Easing, ViewStyle } from "react-native";
+import React, { FC, useEffect, useRef } from "react";
+import { View, Animated, Easing, ViewStyle } from "react-native";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { useCallback } from "react";
@@ -28,10 +28,10 @@ const AnimatedGraph: FC<AnimatedGraphProps> = ({ style }) => {
   const options = {
     particles: {
       number: {
-        value: 40,
+        value: 10,
         density: {
           enable: true,
-          area: 400,
+          area: 1000,
         },
       },
       color: {
@@ -48,7 +48,7 @@ const AnimatedGraph: FC<AnimatedGraphProps> = ({ style }) => {
       },
       links: {
         enable: true,
-        distance: 200,
+        distance: 100,
         color: COLORS.White,
         opacity: 0.7,
         width: 2,
@@ -73,7 +73,7 @@ const AnimatedGraph: FC<AnimatedGraphProps> = ({ style }) => {
       },
       modes: {
         grab: {
-          distance: 140,
+          distance: 70,
           links: {
             opacity: 1,
           },

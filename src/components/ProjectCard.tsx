@@ -12,7 +12,6 @@ import AnimatedText from "./AnimatedText";
 import VisibilitySensor from "react-visibility-sensor";
 import { COLORS, Text } from "../styles";
 import Hoverable from "./Hoverable";
-import { Link } from "react-router-dom";
 
 type ProjectCardProps = {
   title: string;
@@ -21,6 +20,7 @@ type ProjectCardProps = {
   hasAnimation?: boolean;
   layoutStyle?: FlexStyle;
   categories?: string[];
+  content: any; // TODO: create flexible component type
   onPress?: () => void;
 };
 
@@ -63,6 +63,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
   hasAnimation = true,
   layoutStyle,
   categories,
+  content,
   onPress,
 }) => {
   const [shouldStartAnimation, setShouldStartAnimation] = useState(false);
@@ -101,75 +102,73 @@ const ProjectCard: FC<ProjectCardProps> = ({
         }}
         style={styles.visSensor}
       >
-        <Link to="/Project" style={styles.link}>
-          <Hoverable onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
-            <Animated.View style={animatedStyle}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                style={[styles.container, layoutStyle]}
-                onPress={onPress}
-              >
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={image}
-                    style={styles.image}
-                    resizeMode="contain"
-                  />
-                </View>
+        <Hoverable onHoverIn={onHoverIn} onHoverOut={onHoverOut}>
+          <Animated.View style={animatedStyle}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              style={[styles.container, layoutStyle]}
+              onPress={onPress}
+            >
+              <View style={styles.imageContainer}>
+                <Image
+                  source={image}
+                  style={styles.image}
+                  resizeMode="contain"
+                />
+              </View>
 
-                <View style={styles.infoContainer}>
-                  {hasAnimation ? (
-                    <>
-                      {shouldStartAnimation && (
+              <View style={styles.infoContainer}>
+                {hasAnimation ? (
+                  <>
+                    {shouldStartAnimation && (
+                      <AnimatedText
+                        content={title}
+                        fontType="BodyHeader"
+                        style={styles.textLayout}
+                        writeSpeed={15}
+                      />
+                    )}
+                    {shouldStartAnimation && (
+                      <AnimatedText
+                        writeSpeed={1}
+                        fontType="Body"
+                        style={styles.textLayout}
+                        content={description}
+                        onCompleted={() => setHasDescription(true)}
+                      />
+                    )}
+                    {categories && hasDescription && (
+                      <>
                         <AnimatedText
-                          content={title}
-                          fontType="BodyHeader"
-                          style={styles.textLayout}
-                          writeSpeed={15}
-                        />
-                      )}
-                      {shouldStartAnimation && (
-                        <AnimatedText
-                          writeSpeed={1}
+                          writeSpeed={0.5}
                           fontType="Body"
-                          style={styles.textLayout}
-                          content={description}
+                          style={styles.categories}
+                          content={`Categories: `}
                           onCompleted={() => setHasDescription(true)}
                         />
-                      )}
-                      {categories && hasDescription && (
-                        <>
-                          <AnimatedText
-                            writeSpeed={0.5}
-                            fontType="Body"
-                            style={styles.categories}
-                            content={`Categories: `}
-                            onCompleted={() => setHasDescription(true)}
-                          />
-                          <AnimatedText
-                            neverEndingCursor
-                            writeSpeed={100}
-                            fontType="Body"
-                            content={`${categories[0]}, ${categories
-                              .slice(1, categories.length)
-                              .map((el) => ` ${el}`)}`}
-                            onCompleted={() => setHasDescription(true)}
-                          />
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <NonAnimatedText
-                      description={description}
-                      title={title}
-                      categories={categories}
-                    />
-                  )}
-                </View>
-              </TouchableOpacity>
-            </Animated.View>
-          </Hoverable>
-        </Link>
+                        <AnimatedText
+                          neverEndingCursor
+                          writeSpeed={100}
+                          fontType="Body"
+                          content={`${categories[0]}, ${categories
+                            .slice(1, categories.length)
+                            .map((el) => ` ${el}`)}`}
+                          onCompleted={() => setHasDescription(true)}
+                        />
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <NonAnimatedText
+                    description={description}
+                    title={title}
+                    categories={categories}
+                  />
+                )}
+              </View>
+            </TouchableOpacity>
+          </Animated.View>
+        </Hoverable>
       </VisibilitySensor>
     </View>
   );

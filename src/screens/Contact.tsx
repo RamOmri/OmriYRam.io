@@ -18,7 +18,6 @@ export default function Contact() {
       const response = await client.getEntries({
         content_type: "contact",
       });
-      console.log(response.items[0]);
     } catch (error) {
       console.error(error);
     }

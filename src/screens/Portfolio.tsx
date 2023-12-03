@@ -1,21 +1,17 @@
-import React, { useState, useContext } from "react";
-import {
-  View,
-  StyleSheet,
-  useWindowDimensions,
-  ScrollView,
-} from "react-native";
-import { COLORS } from "../styles";
+import React, { useState } from "react";
+import { View, StyleSheet, useWindowDimensions } from "react-native";
 import { AnimatedGraph, AnimatedText, ProjectCard } from "../components";
-import { ShouldRenderBarContext } from "../context-providers";
-import { getProjectData } from "../utils";
 import ScrollableContainer from "../components/ScrollableContainer";
+import { useBlogPostSelector } from "../state";
+import { useNavigate } from "react-router-dom";
 
 export default function Portfolio() {
-  const { height, width } = useWindowDimensions();
+  const { height } = useWindowDimensions();
   const [renderSecondLine, setRenderSecondLine] = useState(false);
 
-  const data = getProjectData();
+  const navigate = useNavigate();
+
+  const { blogPosts } = useBlogPostSelector();
 
   return (
     <ScrollableContainer>
@@ -37,15 +33,33 @@ export default function Portfolio() {
         )}
       </View>
       <View style={styles.portfolioContainer}>
-        {data.map((item) => {
-          const { image, id, ...restProps } = item;
-
+        {blogPosts!.map((item, index) => {
+          const {
+            title,
+            description,
+            cardImage,
+            categories,
+            content,
+            metaInfo,
+          } = item;
+          const image = {
+            uri: `https:${cardImage!.fields.file.url}?q=50&fm=webp`,
+          };
+          const post = { content, metaInfo };
+          console.log(post);
           return (
             <>
               <ProjectCard
-                {...restProps}
-                image={require(`../../assets/${image}`)}
-                key={id}
+                title={title!}
+                description={description!}
+                categories={categories}
+                image={image}
+                content={{ content, metaInfo }}
+                key={index}
+                onPress={() => {
+                  console;
+                  navigate(`/${index}`);
+                }}
               />
               <View style={styles.portfolioSpacer} />
             </>

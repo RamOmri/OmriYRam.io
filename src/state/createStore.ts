@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import aboutMePageSlice from './reducers/aboutMePageSlice';
+import blogPostSlice from './reducers/blogPostSlice';
 import { AboutMeContent } from "../types";
 
 // Set up asyncThunks incase it's a function
@@ -19,6 +20,7 @@ const createStore = () => {
     const store = configureStore({
         reducer: {
             aboutMe: aboutMePageSlice.reducer,
+            blogPosts: blogPostSlice.reducer
         },
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware().concat(asyncFunctionMiddleware),

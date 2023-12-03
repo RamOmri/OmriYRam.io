@@ -1,10 +1,5 @@
-import React, { FC, useEffect, useState } from "react";
-import {
-  Text as RawText,
-  StyleSheet,
-  Dimensions,
-  useWindowDimensions,
-} from "react-native";
+import React, { FC } from "react";
+import { Text as RawText, StyleSheet, useWindowDimensions } from "react-native";
 import { COLORS } from "./Colors";
 
 type TextProps = Pick<
