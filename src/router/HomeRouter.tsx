@@ -41,7 +41,6 @@ function HomeRouter() {
       const post = blogPosts![parseInt(projectID!, 10)];
       setProjectParams(post);
     } else if (!Boolean(projectID)) setProjectParams(undefined);
-    console.log("project ", !Boolean(projectID));
   }, [blogPosts, projectID]);
 
   if (

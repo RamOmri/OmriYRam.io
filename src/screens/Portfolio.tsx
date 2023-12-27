@@ -46,7 +46,6 @@ export default function Portfolio() {
             uri: `https:${cardImage!.fields.file.url}?q=50&fm=webp`,
           };
           const post = { content, metaInfo };
-          console.log(post);
           return (
             <>
               <ProjectCard
@@ -57,7 +56,6 @@ export default function Portfolio() {
                 content={{ content, metaInfo }}
                 key={index}
                 onPress={() => {
-                  console;
                   navigate(`/${index}`);
                 }}
               />
